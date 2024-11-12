@@ -105,7 +105,7 @@ const events = [
             const minutes = Math.floor((diff % 3600000) / 60000);
             const seconds = Math.floor((diff % 60000) / 1000);
 
-            document.getElementById('event-timer').textContent = ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')};
+            document.getElementById('event-timer').textContent = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
             document.querySelector('#events h2').textContent = "Zeit bis zum Schulbeginn am Montag";
             return;
         }
@@ -114,7 +114,7 @@ const events = [
 
         let nextEventTime;
         let nextEvent = dayEvents.find(event => {
-            const eventTime = new Date(${today}T${event.time}:00);
+            const eventTime = new Date(`${today}T${event.time}:00`);
             return eventTime > now;
         });
 
@@ -126,9 +126,9 @@ const events = [
             
             nextEvent = { name: 'zum Schulbeginn', time: '08:00' };
             const nextEventDate = nextDay.toISOString().split('T')[0];
-            nextEventTime = new Date(${nextEventDate}T${nextEvent.time}:00);
+            nextEventTime = new Date(`${nextEventDate}T${nextEvent.time}:00`);
         } else {
-            nextEventTime = new Date(${today}T${nextEvent.time}:00);
+            nextEventTime = new Date(`${today}T${nextEvent.time}:00`);
         }
 
         const diff = nextEventTime - now;
@@ -136,8 +136,8 @@ const events = [
         const minutes = Math.floor((diff % 3600000) / 60000);
         const seconds = Math.floor((diff % 60000) / 1000);
 
-        document.getElementById('event-timer').textContent = ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')};
-        document.querySelector('#events h2').textContent = Zeit bis ${nextEvent.name};
+        document.getElementById('event-timer').textContent = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        document.querySelector('#events h2').textContent = `Zeit bis ${nextEvent.name}`;
 
         if (hours === 0 && minutes === 0 && seconds === 0) {
             schoolBell.play();
