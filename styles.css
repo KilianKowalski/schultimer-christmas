@@ -210,26 +210,51 @@ footer ul li a:hover {
     line-height: 1.5;
 }
 
+/* Header und Nachrichtenticker Styles */
+#header {
+    background-color: #333;
+    color: white;
+    padding-top: 40px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
 #news-ticker {
     width: 100%;
-    background-color: #333;
+    background-color: #444;
     color: white;
     overflow: hidden;
     white-space: nowrap;
+    font-size: 1em;
     padding: 10px 0;
-    font-size: 1.2em;
-    position: relative;
+    position: absolute;
+    top: 0;
 }
 
 .news-container {
     display: inline-block;
     position: absolute;
     white-space: nowrap;
-    padding-left: 100%;
     will-change: transform;
+    color: white;
 }
 
 #news-content {
     display: inline-block;
     white-space: nowrap;
+    color: #FFDD57; /* Gelbe Farbe für gute Sichtbarkeit */
+    font-weight: bold;
+}
+
+/* Sonstige Styles */
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 0 20px;
+}
+
+.hidden {
+    transform: translateY(-100%);
+    transition: transform 0.3s ease;
 }
