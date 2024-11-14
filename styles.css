@@ -11,11 +11,13 @@ header {
     top: 0;
     left: 0;
     background-color: #8CAEFF;
+    background-image: url('header_background.gif');
+    background-size: cover;
+    background-position: center;
     border-bottom: 1px solid #8CAEFF;
     z-index: 1000;
     transition: top 0.3s;
     padding: 10px 0;
-    filter: blur(0px);
 }
 
 header.hidden {
