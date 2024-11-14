@@ -1,147 +1,245 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const header = document.getElementById('header');
-    const fullscreenBtn = document.getElementById('fullscreen-btn');
-    const colorBtn = document.getElementById('color-btn');
-    const colorPicker = document.getElementById('color-picker');
-    const fullscreenEventBtn = document.getElementById('fullscreen-event-btn');
-    const eventColorBtn = document.getElementById('event-color-btn');
-    const eventColorPicker = document.getElementById('event-color-picker');
-    const schoolBell = document.getElementById('school-bell');
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: rgb(159, 174, 193);
+    color: #333;
+}
 
-    let lastScroll = 0;
+header {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background-color: #8CAEFF;
+    border-bottom: 1px solid #8CAEFF;
+    z-index: 1000;
+    transition: top 0.3s;
+    padding: 10px 0;
+    filter: blur(0px);
+}
 
-    window.addEventListener('scroll', () => {
-        const currentScroll = window.pageYOffset;
-        if (currentScroll > lastScroll) {
-            header.classList.add('hidden');
-        } else {
-            header.classList.remove('hidden');
-        }
-        lastScroll = currentScroll;
-    });
+header.hidden {
+    top: -100px;
+}
 
-    function updateTime() {
-        const now = new Date();
-        const timeString = now.toLocaleTimeString('de-DE', { hour12: false });
-        document.getElementById('clock').textContent = timeString;
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+header .logo {
+    height: 50px;
+}
+
+header nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 15px;
+}
+
+header nav ul li a {
+    text-decoration: none;
+    color: #333;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+header nav ul li a:hover {
+    background-color: #ddd;
+}
+
+#start-screen {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: url('background_christmas_1.jpg') no-repeat center center/cover;
+    text-align: center;
+    color: white;
+    position: relative;
+}
+
+#start-screen h1 {
+    font-size: 4em;
+    margin: 0;
+}
+
+#start-screen p {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    font-size: 1.2em;
+}
+
+.arrow {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30px;
+    height: 30px;
+    background-color: white;
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    animation: arrowDown 1s infinite alternate;
+}
+
+@keyframes arrowDown {
+    0% {
+        transform: translateX(-50%) translateY(0);
     }
-    setInterval(updateTime, 1000);
-    updateTime();
-
-    fullscreenBtn.addEventListener('click', () => {
-        const timeSection = document.getElementById('time');
-        if (!document.fullscreenElement) {
-            timeSection.requestFullscreen();
-            timeSection.classList.add('fullscreen');
-        } else {
-            document.exitFullscreen();
-            timeSection.classList.remove('fullscreen');
-        }
-    });
-
-    colorBtn.addEventListener('click', () => {
-        colorPicker.click();
-    });
-
-    colorPicker.addEventListener('input', (event) => {
-        document.getElementById('time').style.backgroundColor = event.target.value;
-    });
-
-    fullscreenEventBtn.addEventListener('click', () => {
-        const eventsSection = document.getElementById('events');
-        if (!document.fullscreenElement) {
-            eventsSection.requestFullscreen();
-            eventsSection.classList.add('fullscreen');
-        } else {
-            document.exitFullscreen();
-            eventsSection.classList.remove('fullscreen');
-        }
-    });
-
-    eventColorBtn.addEventListener('click', () => {
-        eventColorPicker.click();
-    });
-
-    eventColorPicker.addEventListener('input', (event) => {
-        document.getElementById('events').style.backgroundColor = event.target.value;
-    });
-
-    const events = [
-        { name: 'zur 2. Stunde', time: '08:45' },
-        { name: 'zur Pause', time: '09:30' },
-        { name: 'zur 3. Stunde', time: '09:50' },
-        { name: 'zur 4. Stunde', time: '10:35' },
-        { name: 'zur 2. Pause', time: '11:20' },
-        { name: 'zur 5. Stunde', time: '11:35' },
-        { name: 'zur 6. Stunde', time: '12:20' },
-        { name: 'zur Mittagspause', time: '13:00' },
-        { name: 'zum Nachmittagsunterricht', time: '13:45' },
-        { name: 'zum Schulschluss', time: '15:30' }
-    ];
-
-    const fridayEvents = [
-        { name: 'zum Schulbeginn', time: '08:00'},
-        { name: 'zur 2. Stunde', time: '08:45' },
-        { name: 'zur Pause', time: '09:30' },
-        { name: 'zur 3. Stunde', time: '09:50' },
-        { name: 'zur 4. Stunde', time: '10:35' },
-        { name: 'zur 2. Pause', time: '11:20' },
-        { name: 'zur 5. Stunde', time: '11:35' },
-        { name: 'zur 6. Stunde', time: '12:20' },
-        { name: 'zum Wochenende', time: '13:05' }
-    ];
-
-    function updateEventTimer() {
-        const now = new Date();
-        const day = now.getDay();
-        const today = now.toISOString().split('T')[0];
-
-        if (day === 0 || day === 6) {
-            const nextMonday = new Date(now);
-            nextMonday.setDate(now.getDate() + ((1 + 7 - day) % 7));
-            nextMonday.setHours(8, 0, 0, 0);
-            const diff = nextMonday - now;
-            const hours = Math.floor(diff / 3600000);
-            const minutes = Math.floor((diff % 3600000) / 60000);
-            const seconds = Math.floor((diff % 60000) / 1000);
-
-            document.getElementById('event-timer').textContent = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-            document.querySelector('#events h2').textContent = "Zeit bis zum Schulbeginn am Montag";
-            return;
-        }
-
-        const dayEvents = (day === 5) ? fridayEvents : events;
-
-        let nextEventTime;
-        let nextEvent = dayEvents.find(event => {
-            const eventTime = new Date(`${today}T${event.time}:00`);
-            return eventTime > now;
-        });
-
-        if (!nextEvent) {
-            let nextDay = new Date(now);
-            do {
-                nextDay.setDate(nextDay.getDate() + 1);
-            } while (nextDay.getDay() === 0 || nextDay.getDay() === 6);
-            
-            nextEvent = { name: 'zum Schulbeginn', time: '08:00' };
-            nextEventTime = new Date(`${nextDay.toISOString().split('T')[0]}T08:00:00`);
-            document.querySelector('#events h2').textContent = `Zeit bis zum Schulbeginn am ${nextDay.toLocaleDateString('de-DE', { weekday: 'long' })}`;
-        } else {
-            nextEventTime = new Date(`${today}T${nextEvent.time}:00`);
-            document.querySelector('#events h2').textContent = `Zeit bis ${nextEvent.name}`;
-        }
-
-        const diff = nextEventTime - now;
-        const hours = Math.floor(diff / 3600000);
-        const minutes = Math.floor((diff % 3600000) / 60000);
-        const seconds = Math.floor((diff % 60000) / 1000);
-
-        document.getElementById('event-timer').textContent = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-        if (diff <= 1000) {
-            schoolBell.play();
-        }
+    100% {
+        transform: translateX(-50%) translateY(10px);
     }
+}
 
-    setInterval(updateEventTimer, 1000);
-});
+.container {
+    padding: 80px 20px;
+}
+
+#time, #events {
+    text-align: center;
+    position: relative;
+}
+
+#clock, #event-timer {
+    font-size: 5em;
+    font-weight: bold;
+    margin: 20px 0;
+}
+
+#fullscreen-btn, #color-btn, #fullscreen-event-btn, #event-color-btn {
+    display: block;
+    margin: 10px auto;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+#fullscreen-btn {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+}
+
+#color-btn {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}
+
+#fullscreen-event-btn {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+}
+
+#event-color-btn {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}
+
+#time.fullscreen #clock, #events.fullscreen #event-timer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#time.fullscreen h2, #events.fullscreen h2 {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
+    background-color: rgba(255, 255, 255, 0.8);
+    width: 100%;
+    text-align: center;
+    padding: 10px 0;
+    font-size: 1.5em;
+}
+
+#time.fullscreen, #events.fullscreen {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+}
+
+footer ul {
+    list-style: none;
+    padding: 0;
+}
+
+footer ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+footer ul li a:hover {
+    text-decoration: underline;
+}
+
+#description {
+    background-color: #fff;
+    color: #333;
+    padding: 40px 20px;
+    text-align: left;
+    border-radius: 8px;
+}
+
+#description h2 {
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+#description p {
+    font-size: 1.2em;
+    line-height: 1.5;
+}
+
+/* News-Ticker */
+#news-ticker {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #333;
+    color: white;
+    padding: 5px;
+    text-align: center;
+    font-size: 1em;
+    overflow: hidden;
+    white-space: nowrap;
+    z-index: 1000;
+}
+
+#ticker-text {
+    display: inline-block;
+    padding-left: 100%;  /* Der Text beginnt außerhalb des sichtbaren Bereichs */
+    animation: scrollTicker 100s linear infinite; /* Langsame Animation (30 Sekunden) */
+}
+
+@keyframes scrollTicker {
+    0% {
+        transform: translateX(100%); /* Beginnt ganz rechts */
+    }
+    10% {
+        transform: translateX(0); /* Der Text wird schon nach 10% der Animation sichtbar */
+    }
+    100% {
+        transform: translateX(-100%); /* Der Text endet ganz links */
+    }
+}
