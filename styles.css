@@ -15,6 +15,7 @@ header {
     z-index: 1000;
     transition: top 0.3s;
     padding: 10px 0;
+    filter: blur(8px);
 }
 
 header.hidden {
