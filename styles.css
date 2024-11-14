@@ -11,7 +11,7 @@ header {
     top: 0;
     left: 0;
     background-color: #8CAEFF;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #8CAEFF;
     z-index: 1000;
     transition: top 0.3s;
     padding: 10px 0;
