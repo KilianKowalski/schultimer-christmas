@@ -10,8 +10,11 @@ header {
     width: 100%;
     top: 0;
     left: 0;
-    background-color: #fff;
-    border-bottom: 1px solid #ddd;
+    background-color: #8CAEFF;
+    background-image: url('schneeflocken_1.gif');
+    background-size: cover;
+    background-position: center;
+    border-bottom: 1px solid #8CAEFF;
     z-index: 1000;
     transition: top 0.3s;
     padding: 10px 0;
@@ -58,7 +61,7 @@ header nav ul li a:hover {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background: url('background_christmas_1.jpg') no-repeat center center/cover;
+    background: url('background_.png') no-repeat center center/cover;
     text-align: center;
     color: white;
     position: relative;
