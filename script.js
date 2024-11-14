@@ -105,7 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const minutes = Math.floor((diff % 3600000) / 60000);
             const seconds = Math.floor((diff % 60000) / 1000);
 
-            document.getElementById('event-timer').textContent = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            document.getElementById('event-timer').textContent = ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')};
             document.querySelector('#events h2').textContent = "Zeit bis zum Schulbeginn am Montag";
             return;
         }
@@ -114,7 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let nextEventTime;
         let nextEvent = dayEvents.find(event => {
-            const eventTime = new Date(`${today}T${event.time}:00`);
+            const eventTime = new Date(${today}T${event.time}:00);
             return eventTime > now;
         });
 
@@ -125,11 +125,11 @@ document.addEventListener('DOMContentLoaded', () => {
             } while (nextDay.getDay() === 0 || nextDay.getDay() === 6);
             
             nextEvent = { name: 'zum Schulbeginn', time: '08:00' };
-            nextEventTime = new Date(`${nextDay.toISOString().split('T')[0]}T08:00:00`);
-            document.querySelector('#events h2').textContent = `Zeit bis zum Schulbeginn am ${nextDay.toLocaleDateString('de-DE', { weekday: 'long' })}`;
+            nextEventTime = new Date(${nextDay.toISOString().split('T')[0]}T08:00:00);
+            document.querySelector('#events h2').textContent = Zeit bis zum Schulbeginn am ${nextDay.toLocaleDateString('de-DE', { weekday: 'long' })};
         } else {
-            nextEventTime = new Date(`${today}T${nextEvent.time}:00`);
-            document.querySelector('#events h2').textContent = `Zeit bis ${nextEvent.name}`;
+            nextEventTime = new Date(${today}T${nextEvent.time}:00);
+            document.querySelector('#events h2').textContent = Zeit bis ${nextEvent.name};
         }
 
         const diff = nextEventTime - now;
@@ -137,7 +137,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const minutes = Math.floor((diff % 3600000) / 60000);
         const seconds = Math.floor((diff % 60000) / 1000);
 
-        document.getElementById('event-timer').textContent = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        document.getElementById('event-timer').textContent = ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')};
         if (diff <= 1000) {
             schoolBell.play();
         }
