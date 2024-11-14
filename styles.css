@@ -91,6 +91,28 @@ header nav ul li a:hover {
     animation: arrowDown 1s infinite alternate;
 }
 
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.image-ticker {
+    position: absolute;
+    bottom: 0;
+    left: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+.image-ticker img {
+    width: 100px; /* Adjust as needed */
+    animation: imageScroll 10s linear infinite;
+}
+
 @keyframes arrowDown {
     0% {
         transform: translateX(-50%) translateY(0);
